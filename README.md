@@ -1,6 +1,9 @@
 # pH7Client - Save tasks by bot your tasks!
 
-**pH7Client** is a wonderful tool if you need to automate task (like posting articles every day to your blog, add message in a member area, etc). Yes! The pH7Client bot can do almost everything (you just need to create some rules and need to know the input name of the website's forms). Finally, you need to setup a cron for executing the script every X time on a server (Type ```crontab -e``` on your server Linux terminal, then add the cron jobs wanted and save it). Once finished, go to the beach, order a mojito and enjoy your REAL free time that you really deserved!
+**pH7Client** is a wonderful tool if you need to automate tasks (like posting articles every day to your blog, add message in a member area, etc). Yes! The pH7Client bot can do almost everything (you just need to create some rules and need to know the input name of the website's forms).
+In fact, it's a PHP Web client class that simulates a Web browser for retrieving webpage content, login to websites and posting forms, ...
+
+Finally, you have created rules that you want to automate by pH7Client, you need to setup a cron for executing the script every X time on a server (Type ```crontab -e``` on your server Linux terminal, then add the desired cron jobs and save it). Once finished, go to the beach, order a mojito and enjoy your REAL free time that you really deserved!
 
 
 ## Examples
