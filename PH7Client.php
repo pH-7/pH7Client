@@ -120,6 +120,12 @@ class PH7Client
         return $this->_sCookieFileName;
     }
 
+    /**
+     * Change the location of the cookie file (where the cookies are stored).
+     *
+     * @param string $sFileName Path to the file.
+     * @return object this.
+     */
     public function setCookieFile($sFileName)
     {
         $this->_sCookieFileName = $sFileName;
