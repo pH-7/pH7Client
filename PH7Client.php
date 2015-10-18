@@ -182,4 +182,12 @@ class PH7Client
 
         return $this;
     }
+
+    /**
+     * Close cURL connection.
+     */
+    public function __destruct()
+    {
+        curl_close($this->_rCurl);
+    }
 }
