@@ -54,7 +54,7 @@ I'm **Pierre-Henry Soria**, young **PHP software developer** living currently in
 
 ## Contact
 
-You can send an email at **pierrehenry [AT] gmail {D0T} COM** or at **phy {AT} hizup [D0T] UK**
+You can send an email at **pierrehenrysoria [AT] gmail {D0T} COM** or at **phy {AT} hizup [D0T] UK**
 
 
 ## Need a Social/Dating Networking Builder?
