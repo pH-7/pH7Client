@@ -11,14 +11,18 @@
 
 namespace PH7\External\Http\Client;
 
+use InvalidArgumentException;
+
 /**
  * First off, we check the requirements of the class.
  */
-if (version_compare(PHP_VERSION, '5.4.0', '<'))
+if (version_compare(PHP_VERSION, '5.4.0', '<')) {
    exit('Your PHP version is ' . PHP_VERSION . '. pH7CMS.class.php requires PHP 5.4 or newer.');
+}
 
-if(!function_exists('curl_init'))
+if (!function_exists('curl_init')) {
     exit('pH7CMS.class.php requires cURL PHP library. Please install it before running the class.');
+}
 
 
 class PH7Client
@@ -91,8 +95,8 @@ class PH7Client
     /**
      * Get the response.
      *
-     * @param integer $sType The type of response. Can be 'PH7CMS::OBJ_TYPE', 'PH7CMS::ARR_TYPE', or 'PH7CMS::PLAIN_TYPE'. Default: PH7CMS::OBJ_TYPE
-     * @return mixed (string | array | object) The response into Plain, Array or Object format.
+     * @param integer $sType The type of response. Can be 'PH7CMS::OBJ_TYPE', 'PH7CMS::ARR_TYPE', or 'PH7CMS::PLAIN_TYPE'
+     * @return string|array|object The response into Plain, Array or Object format.
      * @throws InvalidArgumentException If the type (specified in $sType parameter) is invalid.
      */
     public function getResponse($sType = self::PLAIN_TYPE)
@@ -111,7 +115,7 @@ class PH7Client
             break;
 
             default:
-                throw new \InvalidArgumentException ('Invalide Response Type. The type can only be "PH7CMS::OBJ_TYPE", "PH7CMS::ARR_TYPE", or "PH7CMS::PLAIN_TYPE"');
+                throw new InvalidArgumentException ('Invalide Response Type. The type can only be "PH7CMS::OBJ_TYPE", "PH7CMS::ARR_TYPE", or "PH7CMS::PLAIN_TYPE"');
         }
     }
 
@@ -135,13 +139,14 @@ class PH7Client
     /**
      * Sent data to the remote site.
      *
-     * @throws InvalidArgumentException If the type (specified in $sType parameter) is invalid.
      * @return object this.
+     * @throws InvalidArgumentException If the type (specified in $sType parameter) is invalid.
      */
     public function send()
     {
-        if (!in_array($this->_sType, $this->_aAllowTypes))
-            throw new \InvalidArgumentException ('The Request Type can be only "GET", "POST", "PUT" or "DELETE!"');
+        if (!in_array($this->_sType, $this->_aAllowTypes)) {
+            throw new InvalidArgumentException ('The Request Type can be only "GET", "POST", "PUT" or "DELETE!"');
+        }
 
         $sPostString = http_build_query($this->_aParams, '', '&');
         curl_setopt($this->_rCurl, CURLOPT_URL, $this->_sRemoteDomain . $this->_sUrl);
@@ -155,6 +160,7 @@ class PH7Client
         curl_setopt($this->_rCurl, CURLOPT_COOKIEJAR, $this->getCookieFile());
         curl_setopt($this->_rCurl, CURLOPT_COOKIEFILE, $this->getCookieFile());
         curl_setopt($this->_rCurl, CURLOPT_USERAGENT, static::USER_AGENT);
+
         if (!empty($this->_sSslPath)) {
             curl_setopt($this->_rCurl, CURLOPT_SSL_VERIFYPEER, true);
             curl_setopt($this->_rCurl, CURLOPT_SSL_VERIFYHOST, 2);
