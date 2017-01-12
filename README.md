@@ -48,9 +48,17 @@ $oPH7CMSApi->post($sRequest2, ['message' => $sBody])->setHeader(false)->send();
 echo $oPH7CMSApi->getResponse(); // Will show the sucessful message telling you that your msg has been send
 ```
 
+
+## Requirements
+
+* PHP 5.4.0 or higher
+* cURL PHP library
+
+
 ## Author
 
 I'm **Pierre-Henry Soria**, young **PHP software developer** living currently in the Wonderful Manchester city, in the UK.
+
 
 ## Contact
 
@@ -59,7 +67,7 @@ You can send an email at **pierrehenrysoria [AT] gmail {D0T} COM** or at **phy {
 
 ## Need a Social/Dating Networking Builder?
 
-Have a look to my **[social dating Web Builder](http://ph7cms.com)**
+Have a look to my **[Social Dating Web Builder](http://ph7cms.com)**
 
 I'm building this software in order to allow people to build Amazing Social/Dating Businesses really easily with almost no money!
 
@@ -69,4 +77,3 @@ I'm building this software in order to allow people to build Amazing Social/Dati
 This project is under MIT license! Enjoy!!
 
 Psst!! By the way, Feel free to contribute to it! If you can, That would be really amazing!
-
