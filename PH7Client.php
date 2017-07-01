@@ -27,27 +27,46 @@ if (!function_exists('curl_init')) {
 
 class PH7Client
 {
-    const PLAIN_TYPE = 1, ARR_TYPE = 2, OBJ_TYPE = 3;
+    const PLAIN_TYPE = 1;
+    const ARR_TYPE = 2;
+    const OBJ_TYPE = 3;
+
     const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:11.0) Gecko/20100101 Firefox/11.0';
 
-    private
-    $_rCurl,
-    $_sPKey,
-    $_sDomain,
-    $_sRemoteDomain,
-    $_sUrl,
-    $_sType,
-    $_sSslPath,
-    $_sResponse,
-    $_sCookieFileName = 'cookie_log.txt',
-    $_bHeader = true,
-    $_aParams,
-    $_aAllowTypes;
+    /** @var  resource */
+    private $_rCurl;
+
+    /** @var string */
+    private $_sRemoteDomain;
+
+    /** @var string */
+    private $_sUrl;
+
+    /** @var string */
+    private $_sType;
+
+    /** @var null|string */
+    private $_sSslPath;
+
+    /** @var string */
+    private $_sResponse;
+
+    /** @var string */
+    private $_sCookieFileName = 'cookie_log.txt';
+
+    /** @var bool */
+    private $_bHeader = true;
+
+    /** @var array */
+    private $_aParams;
+
+    /** @var array */
+    private $_aAllowTypes;
 
     /**
      * Assign values to the attributes.
      *
-     * @param string $sRemoveDomain The URL of where you want to execute the actions.
+     * @param string $sRemoteDomain The URL of where you want to execute the actions.
      * @param string $sSslPath If the URL where your installed pH7CMS used SSL certificate, you have to specify the certificate directory here. Ex: "/path/certificate.pem". Default: NULL
      */
     public function __construct($sRemoteDomain, $sSslPath = null)
@@ -58,37 +77,66 @@ class PH7Client
         $this->_aAllowTypes = array('GET', 'POST', 'PUT', 'DELETE');
     }
 
+    /**
+     * @param string $sUrl
+     * @param array $aParms
+     *
+     * @return self
+     */
     public function get($sUrl, array $aParms)
     {
         $this->_set($sUrl, $aParms, 'GET');
+
         return $this;
     }
 
+    /**
+     * @param string $sUrl
+     * @param array $aParms
+     *
+     * @return self
+     */
     public function post($sUrl, array $aParms)
     {
         $this->_set($sUrl, $aParms, 'POST');
         return $this;
     }
 
+    /**
+     * @param string $sUrl
+     * @param array $aParms
+     *
+     * @return self
+     */
     public function put($sUrl, array $aParms)
     {
         $this->_set($sUrl, $aParms, 'PUT');
-        return $this;
-    }
 
-    public function delete($sUrl, array $aParms)
-    {
-        $this->_set($sUrl, $aParms, 'DELETE');
         return $this;
     }
 
     /**
-     * @param boolean $bHeader If TRUE, it passes headers to the data stream. Default: TRUE
-     * @return object this.
+     * @param string $sUrl
+     * @param array $aParms
+     *
+     * @return self
      */
-    public function setHeader($sHeader = true)
+    public function delete($sUrl, array $aParms)
     {
-        $this->_bHeader = $sHeader;
+        $this->_set($sUrl, $aParms, 'DELETE');
+
+        return $this;
+    }
+
+    /**
+     * @param bool $bHeader If TRUE, it passes headers to the data stream. Default: TRUE
+     *
+     * @return self
+     */
+    public function setHeader($bHeader = true)
+    {
+        $this->_bHeader = $bHeader;
+
         return $this;
     }
 
@@ -96,7 +144,9 @@ class PH7Client
      * Get the response.
      *
      * @param integer $sType The type of response. Can be 'PH7CMS::OBJ_TYPE', 'PH7CMS::ARR_TYPE', or 'PH7CMS::PLAIN_TYPE'
+     *
      * @return string|array|object The response into Plain, Array or Object format.
+     *
      * @throws InvalidArgumentException If the type (specified in $sType parameter) is invalid.
      */
     public function getResponse($sType = self::PLAIN_TYPE)
@@ -128,18 +178,21 @@ class PH7Client
      * Change the location of the cookie file (where the cookies are stored).
      *
      * @param string $sFileName Path to the file.
-     * @return object this.
+     *
+     * @return self
      */
     public function setCookieFile($sFileName)
     {
         $this->_sCookieFileName = $sFileName;
+
         return $this;
     }
 
     /**
      * Sent data to the remote site.
      *
-     * @return object this.
+     * @return self
+     *
      * @throws InvalidArgumentException If the type (specified in $sType parameter) is invalid.
      */
     public function send()
@@ -179,6 +232,8 @@ class PH7Client
      * @param string $sUrl The target URL to send the data.
      * @param array $aParms The request parameters to send.
      * @param string $sType The type of request. Choose only between: 'GET', 'POST', 'PUT' and 'DELETE'.
+     *
+     * @return self
      */
     private function _set($sUrl, array $aParms, $sType)
     {
