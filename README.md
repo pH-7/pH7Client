@@ -23,7 +23,7 @@ $sUser = 'test@ph2date.com';
 $sPass = 'testpass123';
 $sBody = "Hey! What's up today? Psst! I'm a bot but I may understand you...";
 
-$oPH7CMSApi = new PH7Client($sUrl);
+$oWebClient = new PH7Client($sUrl);
 
 /***** Log a user *****/
 $aLogin = [
@@ -34,18 +34,18 @@ $aLogin = [
 ];
 
 // Login the user
-$oPH7CMSApi->post($sRequest1, $aLogin);
+$oWebClient->post($sRequest1, $aLogin);
 // Submit the form
-$oPH7CMSApi->send();
+$oWebClient->send();
 
 
 /***** Send a message *****/
 $aMsg = ['message' => $sBody];
 
 // Send the message
-$oPH7CMSApi->post($sRequest2, ['message' => $sBody])->setHeader(false)->send();
+$oWebClient->post($sRequest2, ['message' => $sBody])->setHeader(false)->send();
 
-echo $oPH7CMSApi->getResponse(); // Will show the sucessful message telling you that your msg has been send
+echo $oWebClient->getResponse(); // Will show the successful message telling you that your msg has been send
 ```
 
 
