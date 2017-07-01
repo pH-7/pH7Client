@@ -1,0 +1,24 @@
+{
+    "name": "ph-7/ph7client",
+    "description": "pH7Client is a PHP Web client class that simulates a Web browser (like a Web Driver) for retrieving webpage content, login to websites and posting forms and makes them on autopilot.",
+    "keywords": ["client","http client","lweb client","automate","webdriver"],
+    "type": "library",
+    "homepage": "https://github.com/pH-7/pH7Client",
+    "license": "GPL-3.0+",
+    "authors": [
+        {
+            "name": "Pierre-Henry Soria",
+            "email": "me@ph7.me",
+            "homepage": "http://ph7.me"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "ext-curl": "*"
+    },
+    "autoload": {
+         "classmap": [
+             "PH7Client.php"
+         ]
+     }
+}
