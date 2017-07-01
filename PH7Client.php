@@ -165,7 +165,7 @@ class PH7Client
             break;
 
             default:
-                throw new InvalidArgumentException ('Invalide Response Type. The type can only be "PH7Client::OBJ_TYPE", "PH7Client::ARR_TYPE", or "PH7Client::PLAIN_TYPE"');
+                throw new InvalidArgumentException('Invalide Response Type. The type can only be "PH7Client::OBJ_TYPE", "PH7Client::ARR_TYPE", or "PH7Client::PLAIN_TYPE"');
         }
     }
 
@@ -198,7 +198,7 @@ class PH7Client
     public function send()
     {
         if (!in_array($this->sType, $this->aAllowTypes)) {
-            throw new InvalidArgumentException ('The Request Type can be only "GET", "POST", "PUT" or "DELETE!"');
+            throw new InvalidArgumentException('The Request Type can be only "GET", "POST", "PUT" or "DELETE!"');
         }
 
         $sPostString = http_build_query($this->aParams, '', '&');
