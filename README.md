@@ -17,7 +17,7 @@ require 'PH7Client.php';
 use PH7\External\Http\Client\PH7Client;
 
 $sUrl = 'http://ph2date-soft-example.com';
-$sReauest1 = 'user/login/';
+$sRequest1 = 'user/login/';
 $sRequest2 = 'user/message_box/myuser920';
 $sUser = 'test@ph2date.com';
 $sPass = 'testpass123';
@@ -34,7 +34,7 @@ $aLogin = [
 ];
 
 // Login the user
-$oPH7CMSApi->post($sReauest1, $aLogin);
+$oPH7CMSApi->post($sRequest1, $aLogin);
 // Submit the form
 $oPH7CMSApi->send();
 
