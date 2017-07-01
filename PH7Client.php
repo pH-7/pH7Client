@@ -33,7 +33,7 @@ class PH7Client
 
     const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:11.0) Gecko/20100101 Firefox/11.0';
 
-    /** @var  resource */
+    /** @var resource */
     private $rCurl;
 
     /** @var string */
