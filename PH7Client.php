@@ -17,11 +17,11 @@ use InvalidArgumentException;
  * First off, we check the requirements of the class.
  */
 if (version_compare(PHP_VERSION, '5.4.0', '<')) {
-   exit('Your PHP version is ' . PHP_VERSION . '. pH7CMS.class.php requires PHP 5.4 or newer.');
+   exit('Your PHP version is ' . PHP_VERSION . '. PH7Client.php requires PHP 5.4 or newer.');
 }
 
 if (!function_exists('curl_init')) {
-    exit('pH7CMS.class.php requires cURL PHP library. Please install it before running the class.');
+    exit('PH7Client.php requires cURL PHP library. Please install it before running the class.');
 }
 
 
@@ -67,7 +67,7 @@ class PH7Client
      * Assign values to the attributes.
      *
      * @param string $sRemoteDomain The URL of where you want to execute the actions.
-     * @param string $sSslPath If the URL where your installed pH7CMS used SSL certificate, you have to specify the certificate directory here. Ex: "/path/certificate.pem". Default: NULL
+     * @param string $sSslPath If it uses SSL certificate, you have to specify the certificate directory here. Ex: "/path/certificate.pem". Default: NULL
      */
     public function __construct($sRemoteDomain, $sSslPath = null)
     {
@@ -143,7 +143,7 @@ class PH7Client
     /**
      * Get the response.
      *
-     * @param integer $sType The type of response. Can be 'PH7CMS::OBJ_TYPE', 'PH7CMS::ARR_TYPE', or 'PH7CMS::PLAIN_TYPE'
+     * @param integer $sType The type of response. Can be 'PH7Client::OBJ_TYPE', 'PH7Client::ARR_TYPE', or 'PH7Client::PLAIN_TYPE'
      *
      * @return string|array|object The response into Plain, Array or Object format.
      *
@@ -165,7 +165,7 @@ class PH7Client
             break;
 
             default:
-                throw new InvalidArgumentException ('Invalide Response Type. The type can only be "PH7CMS::OBJ_TYPE", "PH7CMS::ARR_TYPE", or "PH7CMS::PLAIN_TYPE"');
+                throw new InvalidArgumentException ('Invalide Response Type. The type can only be "PH7Client::OBJ_TYPE", "PH7Client::ARR_TYPE", or "PH7Client::PLAIN_TYPE"');
         }
     }
 
