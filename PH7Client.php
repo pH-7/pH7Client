@@ -34,34 +34,34 @@ class PH7Client
     const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:11.0) Gecko/20100101 Firefox/11.0';
 
     /** @var  resource */
-    private $_rCurl;
+    private $rCurl;
 
     /** @var string */
-    private $_sRemoteDomain;
-
-    /** @var string */
-    private $_sUrl;
-
-    /** @var string */
-    private $_sType;
+    private $sRemoteDomain;
 
     /** @var null|string */
-    private $_sSslPath;
+    private $sUrl;
+
+    /** @var null|string */
+    private $sType;
+
+    /** @var null|string */
+    private $sSslPath;
+
+    /** @var null|string */
+    private $sResponse;
 
     /** @var string */
-    private $_sResponse;
-
-    /** @var string */
-    private $_sCookieFileName = 'cookie_log.txt';
+    private $sCookieFileName = 'cookie_log.txt';
 
     /** @var bool */
-    private $_bHeader = true;
+    private $bHeader = true;
+
+    /** @var null|array */
+    private $aParams;
 
     /** @var array */
-    private $_aParams;
-
-    /** @var array */
-    private $_aAllowTypes;
+    private $aAllowTypes;
 
     /**
      * Assign values to the attributes.
@@ -71,10 +71,10 @@ class PH7Client
      */
     public function __construct($sRemoteDomain, $sSslPath = null)
     {
-        $this->_rCurl = curl_init();
-        $this->_sRemoteDomain = (substr($sRemoteDomain, -1) != '/' ? $sRemoteDomain . '/' : $sRemoteDomain); // The domain has to finished by a Slash "/"
-        $this->_sSslPath = $sSslPath;
-        $this->_aAllowTypes = array('GET', 'POST', 'PUT', 'DELETE');
+        $this->rCurl = curl_init();
+        $this->sRemoteDomain = (substr($sRemoteDomain, -1) != '/' ? $sRemoteDomain . '/' : $sRemoteDomain); // The domain has to finished by a Slash "/"
+        $this->sSslPath = $sSslPath;
+        $this->aAllowTypes = array('GET', 'POST', 'PUT', 'DELETE');
     }
 
     /**
@@ -85,7 +85,7 @@ class PH7Client
      */
     public function get($sUrl, array $aParms)
     {
-        $this->_set($sUrl, $aParms, 'GET');
+        $this->set($sUrl, $aParms, 'GET');
 
         return $this;
     }
@@ -98,7 +98,7 @@ class PH7Client
      */
     public function post($sUrl, array $aParms)
     {
-        $this->_set($sUrl, $aParms, 'POST');
+        $this->set($sUrl, $aParms, 'POST');
         return $this;
     }
 
@@ -110,7 +110,7 @@ class PH7Client
      */
     public function put($sUrl, array $aParms)
     {
-        $this->_set($sUrl, $aParms, 'PUT');
+        $this->set($sUrl, $aParms, 'PUT');
 
         return $this;
     }
@@ -123,7 +123,7 @@ class PH7Client
      */
     public function delete($sUrl, array $aParms)
     {
-        $this->_set($sUrl, $aParms, 'DELETE');
+        $this->set($sUrl, $aParms, 'DELETE');
 
         return $this;
     }
@@ -135,7 +135,7 @@ class PH7Client
      */
     public function setHeader($bHeader = true)
     {
-        $this->_bHeader = $bHeader;
+        $this->bHeader = $bHeader;
 
         return $this;
     }
@@ -153,15 +153,15 @@ class PH7Client
     {
         switch ($sType) {
             case static::OBJ_TYPE:
-                return json_decode($this->_sResponse);
+                return json_decode($this->sResponse);
             break;
 
             case static::ARR_TYPE:
-                return json_decode($this->_sResponse, true);
+                return json_decode($this->sResponse, true);
             break;
 
             case static::PLAIN_TYPE:
-                return $this->_sResponse;
+                return $this->sResponse;
             break;
 
             default:
@@ -171,7 +171,7 @@ class PH7Client
 
     public function getCookieFile()
     {
-        return $this->_sCookieFileName;
+        return $this->sCookieFileName;
     }
 
     /**
@@ -183,7 +183,7 @@ class PH7Client
      */
     public function setCookieFile($sFileName)
     {
-        $this->_sCookieFileName = $sFileName;
+        $this->sCookieFileName = $sFileName;
 
         return $this;
     }
@@ -197,31 +197,31 @@ class PH7Client
      */
     public function send()
     {
-        if (!in_array($this->_sType, $this->_aAllowTypes)) {
+        if (!in_array($this->sType, $this->aAllowTypes)) {
             throw new InvalidArgumentException ('The Request Type can be only "GET", "POST", "PUT" or "DELETE!"');
         }
 
-        $sPostString = http_build_query($this->_aParams, '', '&');
-        curl_setopt($this->_rCurl, CURLOPT_URL, $this->_sRemoteDomain . $this->_sUrl);
-        curl_setopt($this->_rCurl, CURLOPT_HEADER, $this->_bHeader);
-        curl_setopt($this->_rCurl, CURLOPT_POSTFIELDS, $sPostString);
-        curl_setopt($this->_rCurl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->_rCurl, CURLINFO_HEADER_OUT, true);
-        curl_setopt($this->_rCurl, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($this->_rCurl, CURLOPT_CUSTOMREQUEST, "{$this->_sType}");
-        curl_setopt($this->_rCurl, CURLOPT_COOKIESESSION, true);
-        curl_setopt($this->_rCurl, CURLOPT_COOKIEJAR, $this->getCookieFile());
-        curl_setopt($this->_rCurl, CURLOPT_COOKIEFILE, $this->getCookieFile());
-        curl_setopt($this->_rCurl, CURLOPT_USERAGENT, static::USER_AGENT);
+        $sPostString = http_build_query($this->aParams, '', '&');
+        curl_setopt($this->rCurl, CURLOPT_URL, $this->sRemoteDomain . $this->sUrl);
+        curl_setopt($this->rCurl, CURLOPT_HEADER, $this->bHeader);
+        curl_setopt($this->rCurl, CURLOPT_POSTFIELDS, $sPostString);
+        curl_setopt($this->rCurl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($this->rCurl, CURLINFO_HEADER_OUT, true);
+        curl_setopt($this->rCurl, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($this->rCurl, CURLOPT_CUSTOMREQUEST, "{$this->sType}");
+        curl_setopt($this->rCurl, CURLOPT_COOKIESESSION, true);
+        curl_setopt($this->rCurl, CURLOPT_COOKIEJAR, $this->getCookieFile());
+        curl_setopt($this->rCurl, CURLOPT_COOKIEFILE, $this->getCookieFile());
+        curl_setopt($this->rCurl, CURLOPT_USERAGENT, static::USER_AGENT);
 
-        if (!empty($this->_sSslPath)) {
-            curl_setopt($this->_rCurl, CURLOPT_SSL_VERIFYPEER, true);
-            curl_setopt($this->_rCurl, CURLOPT_SSL_VERIFYHOST, 2);
-            curl_setopt($this->_rCurl, CURLOPT_CAINFO, $this->_sSslPath);
+        if (!empty($this->sSslPath)) {
+            curl_setopt($this->rCurl, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($this->rCurl, CURLOPT_SSL_VERIFYHOST, 2);
+            curl_setopt($this->rCurl, CURLOPT_CAINFO, $this->sSslPath);
         }
 
         // Set the Response into an attribute
-        $this->_sResponse = curl_exec($this->_rCurl);
+        $this->sResponse = curl_exec($this->rCurl);
 
         return $this;
     }
@@ -235,11 +235,11 @@ class PH7Client
      *
      * @return self
      */
-    private function _set($sUrl, array $aParms, $sType)
+    private function set($sUrl, array $aParms, $sType)
     {
-        $this->_sUrl = $sUrl;
-        $this->_aParams = $aParms;
-        $this->_sType = $sType;
+        $this->sUrl = $sUrl;
+        $this->aParams = $aParms;
+        $this->sType = $sType;
 
         return $this;
     }
@@ -249,6 +249,6 @@ class PH7Client
      */
     public function __destruct()
     {
-        curl_close($this->_rCurl);
+        curl_close($this->rCurl);
     }
 }
