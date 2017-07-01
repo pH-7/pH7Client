@@ -8,8 +8,6 @@ Finally, you have created rules that you want to automate by pH7Client, you need
 
 ## Examples
 
-### .1 - The Basic one
-
 ```PHP
 // Include the library
 require 'PH7Client.php';
