@@ -72,7 +72,7 @@ class PH7Client
     public function __construct($sRemoteDomain, $sSslPath = null)
     {
         $this->rCurl = curl_init();
-        $this->sRemoteDomain = (substr($sRemoteDomain, -1) != '/' ? $sRemoteDomain . '/' : $sRemoteDomain); // The domain has to finished by a Slash "/"
+        $this->sRemoteDomain = (substr($sRemoteDomain, -1) !== '/' ? $sRemoteDomain . '/' : $sRemoteDomain); // The domain has to finished by a Slash "/"
         $this->sSslPath = $sSslPath;
         $this->aAllowTypes = array('GET', 'POST', 'PUT', 'DELETE');
     }
