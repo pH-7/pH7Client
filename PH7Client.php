@@ -208,7 +208,7 @@ class PH7Client
         curl_setopt($this->rCurl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->rCurl, CURLINFO_HEADER_OUT, true);
         curl_setopt($this->rCurl, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($this->rCurl, CURLOPT_CUSTOMREQUEST, "{$this->sType}");
+        curl_setopt($this->rCurl, CURLOPT_CUSTOMREQUEST, $this->sType);
         curl_setopt($this->rCurl, CURLOPT_COOKIESESSION, true);
         curl_setopt($this->rCurl, CURLOPT_COOKIEJAR, $this->getCookieFile());
         curl_setopt($this->rCurl, CURLOPT_COOKIEFILE, $this->getCookieFile());
