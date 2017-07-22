@@ -33,6 +33,11 @@ class PH7Client
 
     const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:11.0) Gecko/20100101 Firefox/11.0';
 
+    const POST_METHOD = 'POST';
+    const GET_METHOD = 'GET';
+    const PUT_METHOD = 'PUT';
+    const DELETE_METHOD = 'DELETE';
+
     /** @var resource */
     private $rCurl;
 
@@ -74,7 +79,7 @@ class PH7Client
         $this->rCurl = curl_init();
         $this->sRemoteDomain = (substr($sRemoteDomain, -1) !== '/' ? $sRemoteDomain . '/' : $sRemoteDomain); // The domain has to finished by a Slash "/"
         $this->sSslPath = $sSslPath;
-        $this->aAllowTypes = array('GET', 'POST', 'PUT', 'DELETE');
+        $this->aAllowTypes = [self::GET_METHOD, self::POST_METHOD, self::PUT_METHOD, self::DELETE_METHOD];
     }
 
     /**
@@ -85,7 +90,7 @@ class PH7Client
      */
     public function get($sUrl, array $aParms)
     {
-        $this->set($sUrl, $aParms, 'GET');
+        $this->set($sUrl, $aParms, self::GET_METHOD);
 
         return $this;
     }
@@ -98,7 +103,7 @@ class PH7Client
      */
     public function post($sUrl, array $aParms)
     {
-        $this->set($sUrl, $aParms, 'POST');
+        $this->set($sUrl, $aParms, self::POST_METHOD);
         return $this;
     }
 
@@ -110,7 +115,7 @@ class PH7Client
      */
     public function put($sUrl, array $aParms)
     {
-        $this->set($sUrl, $aParms, 'PUT');
+        $this->set($sUrl, $aParms, self::PUT_METHOD);
 
         return $this;
     }
@@ -123,7 +128,7 @@ class PH7Client
      */
     public function delete($sUrl, array $aParms)
     {
-        $this->set($sUrl, $aParms, 'DELETE');
+        $this->set($sUrl, $aParms, self::DELETE_METHOD);
 
         return $this;
     }
