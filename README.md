@@ -72,6 +72,6 @@ I'm building this software in order to allow people to build Amazing Social/Dati
 
 ## Licence
 
-This project is under MIT license! Enjoy!!
+This project is under GPLv3 license! Enjoy!!
 
 Psst!! By the way, Feel free to contribute to it! If you can, That would be really amazing!
