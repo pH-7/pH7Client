@@ -6,12 +6,33 @@ In fact, it's a PHP Web client class that simulates a Web browser for retrieving
 Finally, you have created rules that you want to automate by pH7Client, you need to setup a cron for executing the script every X time on a server (Type ```crontab -e``` on your server Linux terminal, then add the desired cron jobs and save it). Once finished, go to the beach, order a mojito and enjoy your REAL free time that you really deserved!
 
 
+## Composer Installation
+
+ You can add it easily in your project by using [Composer](https://getcomposer.org/).
+
+
+```bash
+composer require ph-7/ph7client
+ ```
+
+Then, include Composer's autoload
+
+```PHP
+require_once 'vendor/autoload.php';
+```
+
+## Manual Installation (*the old-fashioned way*)
+
+If you don't use Composer, you can install it without Composer by simply including the class
+
+```PHP
+require 'PH7Client.php';
+```
+
+
 ## Examples
 
 ```PHP
-// Include the library
-require 'PH7Client.php';
-
 use PH7\External\Http\Client\PH7Client;
 
 $sUrl = 'http://ph2date-soft-example.com';
